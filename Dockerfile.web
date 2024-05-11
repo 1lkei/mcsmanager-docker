@@ -1,0 +1,19 @@
+FROM node:20.13-alpine
+
+RUN apk --no-cache add wget && \
+    mkdir -p /opt/mcsmanager/temp && \
+    cd /opt/mcsmanager/temp && \
+    wget https://github.com/MCSManager/MCSManager/releases/latest/download/mcsmanager_linux_release.tar.gz && \
+    tar -zxf mcsmanager_linux_release.tar.gz && \
+    mv web/ ../ && \
+    cd /opt/mcsmanager/web && \
+    rm -r ../temp && \
+    npm install --production
+    
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+
+WORKDIR /opt/mcsmanager/web
+
+ENTRYPOINT ["node", "app.js", "--max-old-space-size=8192"]
