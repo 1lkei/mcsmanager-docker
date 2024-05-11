@@ -1,6 +1,7 @@
 FROM node:20.13-alpine
 
-RUN apk --no-cache add wget bash && \
+RUN apk update && \
+    apk --no-cache add wget bash openjdk17 && \
     mkdir -p /opt/mcsmanager/temp && \
     cd /opt/mcsmanager/temp && \
     wget https://github.com/MCSManager/MCSManager/releases/latest/download/mcsmanager_linux_release.tar.gz && \
