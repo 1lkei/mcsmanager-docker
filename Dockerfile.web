@@ -10,9 +10,7 @@ RUN apk update && \
 FROM node:18-alpine3.18
 WORKDIR /opt/mcsmanager/web
 COPY --from=builder /opt/web ./
-RUN npm install --production && \
-    npm cache clean --force && \
-    rm -rf /var/cache/apk/*
+RUN npm install --production
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
