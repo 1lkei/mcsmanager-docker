@@ -1,20 +1,16 @@
-FROM node:20.13-alpine
-
+FROM node:18-alpine as builder
 RUN apk update && \
     apk --no-cache add wget && \
-    mkdir -p /opt/mcsmanager/temp && \
-    cd /opt/mcsmanager/temp && \
+    cd /opt && \
     wget https://github.com/MCSManager/MCSManager/releases/latest/download/mcsmanager_linux_release.tar.gz && \
-    tar -zxf mcsmanager_linux_release.tar.gz && \
-    mv web/ ../ && \
-    cd /opt/mcsmanager/web && \
-    rm -r ../temp && \
-    npm install --production
-    
+    tar -zxf mcsmanager_linux_release.tar.gz
+
+
+FROM node:18-alpine
+WORKDIR /opt/mcsmanager/web
+COPY --from=builder /opt/web ./
+RUN npm install --production
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
-
-WORKDIR /opt/mcsmanager/web
-
 ENTRYPOINT ["node", "app.js", "--max-old-space-size=8192"]
