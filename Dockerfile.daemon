@@ -1,16 +1,20 @@
-FROM node:18-alpine as builder
+FROM node:18-alpine3.18 as builder
 RUN apk update && \
-    apk --no-cache add wget && \
+    apk --no-cache add --virtual .build-deps wget && \
     cd /opt && \
     wget https://github.com/MCSManager/MCSManager/releases/latest/download/mcsmanager_linux_release.tar.gz && \
-    tar -zxf mcsmanager_linux_release.tar.gz
+    tar -zxf mcsmanager_linux_release.tar.gz && \
+    rm -rf mcsmanager_linux_release.tar.gz && \
+    apk del .build-deps
 
-FROM node:18-alpine
+FROM node:18-alpine3.18
 WORKDIR /opt/mcsmanager/daemon
 COPY --from=builder /opt/daemon ./
 RUN apk update && \
     apk --no-cache add bash && \
-    npm install --production
+    npm install --production && \
+    npm cache clean --force && \
+    rm -rf /var/cache/apk/*
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
