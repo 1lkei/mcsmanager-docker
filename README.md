@@ -1,7 +1,6 @@
 # mcsmanager-docker
 
-### 构建日期2024.5.28
-缩减镜像大小
+### 构建日期2024.6.21
 
 ### docker镜像
 https://hub.docker.com/r/ilkeiii/mcsmanager-daemon   
@@ -45,4 +44,4 @@ docker run -d \
 卸载java:```docker exec -it mcsm-daemon bash -i -c 'apk del openjdk17'```   
 后续安装其他java:```docker exec -it mcsm-daemon bash -i -c 'apk update && apk --no-cache add openjdk8'```   
 
-java路径:```/usr/lib/jvm/```   
+java路径:```/usr/lib/jvm/```
