@@ -1,6 +1,6 @@
 # mcsmanager-docker
 
-### 构建日期2024.6.21
+### 构建日期2024.6.23
 
 ### docker镜像
 https://hub.docker.com/r/ilkeiii/mcsmanager-daemon   
