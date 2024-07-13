@@ -1,4 +1,4 @@
-FROM node:18-alpine3.18 as builder
+FROM node:lts-alpine as builder
 RUN apk update && \
     apk --no-cache add --virtual .build-deps wget && \
     cd /opt && \
@@ -7,7 +7,7 @@ RUN apk update && \
     rm -rf mcsmanager_linux_release.tar.gz && \
     apk del .build-deps
 
-FROM node:18-alpine3.18
+FROM node:lts-alpine
 WORKDIR /opt/mcsmanager/daemon
 COPY --from=builder /opt/daemon ./
 RUN apk update && \
