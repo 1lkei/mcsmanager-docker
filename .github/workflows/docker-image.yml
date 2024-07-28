@@ -35,7 +35,7 @@ jobs:
           push: true # push to docker hub
           tags: |
               ilkeiii/mcsmanager-daemon:latest
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
 
       - name: Docker build-push web
         uses: docker/build-push-action@v6
@@ -45,4 +45,4 @@ jobs:
           push: true # push to docker hub
           tags: |
               ilkeiii/mcsmanager-web:latest
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
