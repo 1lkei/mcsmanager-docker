@@ -3,6 +3,8 @@ name: Docker images build and push
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'actions-time.txt'
   schedule:
     - cron: "0 0 * * *"   # 每天12点
 
@@ -25,7 +27,7 @@ jobs:
           username: ilkeiii
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push daemon
+      - name: Docker build-push daemon
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -35,7 +37,7 @@ jobs:
               ilkeiii/mcsmanager-daemon:latest
           platforms: linux/amd64
 
-      - name: Build and push web
+      - name: Docker build-push web
         uses: docker/build-push-action@v6
         with:
           context: .
