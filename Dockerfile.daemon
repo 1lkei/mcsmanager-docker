@@ -10,10 +10,7 @@ RUN apk update && \
 FROM node:lts-alpine
 WORKDIR /opt/mcsmanager/daemon
 COPY --from=builder /opt/daemon ./
-RUN apk update && \
-    apk --no-cache add bash && \
-    npm install --production && \
-    rm -rf /var/cache/apk/*
+RUN npm install --production
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8

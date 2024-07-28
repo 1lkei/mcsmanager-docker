@@ -1,7 +1,5 @@
 # mcsmanager-docker
 
-### 构建日期2024.7.13
-
 ### docker镜像
 https://hub.docker.com/r/ilkeiii/mcsmanager-daemon   
 https://hub.docker.com/r/ilkeiii/mcsmanager-web
@@ -37,11 +35,11 @@ docker run -d \
 ### 安装java 
 以下二选一:   
 中国镜像:   
-```docker exec -it mcsm-daemon bash -i -c 'sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk update && apk --no-cache add openjdk17'```   
+```docker exec -it mcsm-daemon sh -i -c 'sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && apk update && apk --no-cache add openjdk17'```   
 原版:   
-```docker exec -it mcsm-daemon bash -i -c 'apk update && apk --no-cache add openjdk17'```   
+```docker exec -it mcsm-daemon sh -i -c 'apk update && apk --no-cache add openjdk17'```   
 
-卸载java:```docker exec -it mcsm-daemon bash -i -c 'apk del openjdk17'```   
-后续安装其他java:```docker exec -it mcsm-daemon bash -i -c 'apk update && apk --no-cache add openjdk8'```   
+卸载java:```docker exec -it mcsm-daemon sh -i -c 'apk del openjdk17'```   
+后续安装其他java:```docker exec -it mcsm-daemon sh -i -c 'apk update && apk --no-cache add openjdk8'```   
 
 java路径:```/usr/lib/jvm/```
