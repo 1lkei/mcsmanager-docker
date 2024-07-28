@@ -1,8 +1,10 @@
-name: Docker Image
+name: Docker images build and push
 
 on:
   push:
     branches: [ "main" ]
+  schedule:
+    - cron: "0 0 * * *"   # 每天12点
 
 jobs:
   build:
@@ -24,7 +26,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push daemon
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile.daemon
@@ -34,7 +36,7 @@ jobs:
           platforms: linux/amd64
 
       - name: Build and push web
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile.web
