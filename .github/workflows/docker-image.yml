@@ -5,8 +5,8 @@ on:
     branches: [ "main" ]
     paths:
       - 'actions-time.txt'
-  schedule:
-    - cron: "0 0 12 * *"   # 每天12点
+  # schedule:
+    # - cron: "0 0 12 * *"   # 每天12点
 
 jobs:
   build:
