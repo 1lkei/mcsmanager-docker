@@ -11,7 +11,7 @@ FROM node:lts-alpine
 WORKDIR /opt/mcsmanager/web
 COPY --from=builder /opt/web ./
 RUN npm install --production
-# ENV LC_ALL en_US.UTF-8
-# ENV LANG en_US.UTF-8
-# ENV LANGUAGE en_US.UTF-8
+# ENV LC_ALL=en_US.UTF-8
+# ENV LANG=en_US.UTF-8
+# ENV LANGUAGE=en_US.UTF-8
 ENTRYPOINT ["node", "app.js", "--max-old-space-size=8192"]
