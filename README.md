@@ -12,10 +12,10 @@ https://github.com/ilkeiii/mcsmanager-docker
 ```
 docker run -d \
     --name mcsm-web \
-    -p 63068:23333 \
+    -p 23333:23333 \
     --restart unless-stopped \
-    --mount type=bind,source=$(pwd)/mcsmanager/web/data,target=/opt/mcsmanager/web/data \
-    --mount type=bind,source=$(pwd)/mcsmanager/daemon/data,target=/opt/mcsmanager/daemon/data \
+    -v $(pwd)/mcsmanager/web/data:/opt/mcsmanager/web/data \
+    -v $(pwd)/mcsmanager/daemon/data:/opt/mcsmanager/daemon/data \
     ilkeiii/mcsmanager-web:latest
 ```
 ### daemon
@@ -23,11 +23,11 @@ docker run -d \
 ```
 docker run -d \
     --name mcsm-daemon \
-    -p 63069:24444 \
-    -p 63070:25565 \
+    -p 24444:24444 \
+    -p 25565:25565 \
     --restart unless-stopped \
-    --mount type=bind,source=$(pwd)/mcsmanager/daemon/data,target=/opt/mcsmanager/daemon/data \
-    --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock,readonly \
+    -v $(pwd)/mcsmanager/daemon/data:/opt/mcsmanager/daemon/data \
+    -v /var/run/docker.sock:/var/run/docker.sock:ro \
     ilkeiii/mcsmanager-daemon:latest
 ```
 
