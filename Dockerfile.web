@@ -10,7 +10,7 @@ RUN apk update && \
 FROM node:lts-alpine
 WORKDIR /opt/mcsmanager/web
 COPY --from=builder /opt/mcsmanager/web ./
-RUN npm install --production
+RUN npm install --omit=dev
 # ENV LC_ALL=en_US.UTF-8
 # ENV LANG=en_US.UTF-8
 # ENV LANGUAGE=en_US.UTF-8
