@@ -1,10 +1,10 @@
 # mcsmanager-docker
 
 ### docker镜像
-https://hub.docker.com/r/ilkeiii/mcsmanager-daemon   
-https://hub.docker.com/r/ilkeiii/mcsmanager-web
+https://hub.docker.com/r/1lkei/mcsmanager-daemon   
+https://hub.docker.com/r/1lkei/mcsmanager-web
 ### github地址
-https://github.com/ilkeiii/mcsmanager-docker
+https://github.com/1lkei/mcsmanager-docker
 
 
 ### web
@@ -16,7 +16,7 @@ docker run -d \
     --restart unless-stopped \
     -v $(pwd)/mcsmanager/web/data:/opt/mcsmanager/web/data \
     -v $(pwd)/mcsmanager/daemon/data:/opt/mcsmanager/daemon/data \
-    ilkeiii/mcsmanager-web:latest
+    1lkei/mcsmanager-web:latest
 ```
 ### daemon
 
@@ -28,7 +28,7 @@ docker run -d \
     --restart unless-stopped \
     -v $(pwd)/mcsmanager/daemon/data:/opt/mcsmanager/daemon/data \
     -v /var/run/docker.sock:/var/run/docker.sock:ro \
-    ilkeiii/mcsmanager-daemon:latest
+    1lkei/mcsmanager-daemon:latest
 ```
 
 
