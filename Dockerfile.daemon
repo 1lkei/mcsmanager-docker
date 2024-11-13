@@ -1,8 +1,8 @@
 FROM node:lts-alpine AS builder
 RUN apk update && \
-    apk --no-cache add --virtual .build-deps curl && \
+    apk --no-cache add --virtual .build-deps wget && \
     cd /opt && \
-    curl -o mcsmanager_linux_release.tar.gz https://github.com/MCSManager/MCSManager/releases/latest/download/mcsmanager_linux_release.tar.gz && \
+    wget https://github.com/MCSManager/MCSManager/releases/latest/download/mcsmanager_linux_release.tar.gz && \
     tar -zxf mcsmanager_linux_release.tar.gz && \
     rm -rf mcsmanager_linux_release.tar.gz && \
     apk del .build-deps
