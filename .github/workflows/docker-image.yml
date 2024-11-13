@@ -37,6 +37,16 @@ jobs:
               1lkei/mcsmanager-daemon:latest
           platforms: linux/amd64,linux/arm64
 
+      - name: Docker build-push debian_daemon
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile_debian.daemon
+          push: true # push to docker hub
+          tags: |
+              1lkei/mcsmanager-daemon:debian
+          platforms: linux/amd64,linux/arm64
+
       - name: Docker build-push web
         uses: docker/build-push-action@v6
         with:

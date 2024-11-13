@@ -7,9 +7,9 @@ RUN apk update && \
     rm -rf mcsmanager_linux_release.tar.gz && \
     apk del .build-deps
 
-FROM node:lts-alpine
-WORKDIR /opt/mcsmanager/web
-COPY --from=builder /opt/mcsmanager/web ./
+FROM node:lts-bookworm
+WORKDIR /opt/mcsmanager/daemon
+COPY --from=builder /opt/mcsmanager/daemon ./
 RUN npm install --omit=dev
 # ENV LC_ALL=en_US.UTF-8
 # ENV LANG=en_US.UTF-8
