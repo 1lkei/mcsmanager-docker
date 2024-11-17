@@ -1,13 +1,9 @@
-name: Docker images build and push
+name: Docker images auto build and push
 
 on:
-  push:
-    branches: [ "main" ]
-    paths:
-      - 'actions-time.txt'
-  # schedule:
-    # - cron: "0 0 12 * *"   # 每天12点
-    
+  schedule:
+    - cron: "0 0 * * *"   # 每天12点
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,18 +29,22 @@ jobs:
           echo "local_version=$local_version" >> $GITHUB_ENV
 
       - name: Set up QEMU
+        if: env.local_version != env.latest_version
         uses: docker/setup-qemu-action@v3.2.0
 
       - name: Set up Docker Buildx
+        if: env.local_version != env.latest_version
         uses: docker/setup-buildx-action@v3.7.1
 
       - name: Login to DockerHub
+        if: env.local_version != env.latest_version
         uses: docker/login-action@v3.3.0
         with:
           username: 1lkei
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Docker build-push daemon
+        if: env.local_version != env.latest_version
         uses: docker/build-push-action@v6.9.0
         with:
           context: .
@@ -58,6 +58,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
 
       - name: Docker build-push daemon_debian
+        if: env.local_version != env.latest_version
         uses: docker/build-push-action@v6.9.0
         with:
           context: .
@@ -71,6 +72,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
 
       - name: Docker build-push web
+        if: env.local_version != env.latest_version
         uses: docker/build-push-action@v6.9.0
         with:
           context: .
