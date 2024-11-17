@@ -93,5 +93,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add MCSManager_version
           git commit -m "Update version to $latest_version"
-          git remote set-url origin https://1lkei:${{ secrets.REPO_BOT }}@github.com/1lkei/test.git
+          git remote set-url origin https://1lkei:${{ secrets.REPO_BOT }}@github.com/1lkei/mcsmanager-docker.git
           git push
