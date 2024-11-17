@@ -1,9 +1,9 @@
 FROM node:lts-alpine AS builder
 ARG LATEST_TAG
 RUN apk update && \
-    apk --no-cache add --virtual .build-deps wget && \
+    apk --no-cache add --virtual .build-deps curl && \
     cd /opt && \
-    wget https://github.com/MCSManager/MCSManager/releases/$LATEST_TAG/download/mcsmanager_linux_release.tar.gz && \
+    curl -o mcsmanager_linux_release.tar.gz https://github.com/MCSManager/MCSManager/releases/$LATEST_TAG/download/mcsmanager_linux_release.tar.gz && \
     tar -zxf mcsmanager_linux_release.tar.gz && \
     rm -rf mcsmanager_linux_release.tar.gz && \
     apk del .build-deps
