@@ -1,12 +1,13 @@
 FROM node:lts-alpine AS builder
 ARG LATEST_TAG
 RUN apk update && \
-    apk --no-cache add --virtual .build-deps curl && \
+    apk add --no-cache --virtual .build-deps curl && \
     cd /opt && \
     curl -L -o mcsmanager_linux_release.tar.gz https://github.com/MCSManager/MCSManager/releases/download/$LATEST_TAG/mcsmanager_linux_release.tar.gz && \
     tar -zxf mcsmanager_linux_release.tar.gz && \
     rm -rf mcsmanager_linux_release.tar.gz && \
-    apk del .build-deps
+    apk del .build-deps && \
+    rm -rf /var/cache/apk/*
 
 FROM node:lts-bookworm
 WORKDIR /opt/mcsmanager/daemon
