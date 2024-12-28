@@ -8,6 +8,7 @@ depend() {
 
 start() {
     cd /opt/mcsmanager/daemon/ && node --max-old-space-size=8192 --enable-source-maps app.js &
+    echo "mcsmanager daemon start"
     echo $! > /var/run/mcs_daemon.pid
     eend $?
 }

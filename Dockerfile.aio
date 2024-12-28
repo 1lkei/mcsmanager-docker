@@ -27,6 +27,3 @@ RUN apk update && \
     rc-update add mcs_web default && \
     rc-update add mcs_daemon default && \
     rm -rf /var/cache/apk/*
-    
-# ENTRYPOINT ["node", "--max-old-space-size=8192", "--enable-source-maps", "app.js"]
-CMD [ "/sbin/init" ]

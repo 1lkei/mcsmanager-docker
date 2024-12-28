@@ -8,6 +8,7 @@ depend() {
 
 start() {
     cd /opt/mcsmanager/web/ && node --max-old-space-size=8192 --enable-source-maps app.js &
+    echo "mcsmanager web start"
     echo $! > /var/run/mcs_web.pid
     eend $?
 }
