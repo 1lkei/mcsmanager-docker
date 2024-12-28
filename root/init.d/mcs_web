@@ -1,0 +1,21 @@
+#!/sbin/openrc-run
+
+description="mcs_web"
+
+depend() {
+    need net
+}
+
+start() {
+    cd /opt/mcsmanager/web/ && node --max-old-space-size=8192 --enable-source-maps app.js &
+    echo $! > /var/run/mcs_web.pid
+    eend $?
+}
+
+stop() {
+    if [ -f /var/run/mcs_web.pid ]; then
+        kill -TERM $(cat /var/run/mcs_web.pid)
+        rm /var/run/mcs_web.pid
+    fi
+    eend $?
+}

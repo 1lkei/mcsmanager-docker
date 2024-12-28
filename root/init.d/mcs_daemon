@@ -1,0 +1,21 @@
+#!/sbin/openrc-run
+
+description="mcs_daemon"
+
+depend() {
+    need net
+}
+
+start() {
+    cd /opt/mcsmanager/daemon/ && node --max-old-space-size=8192 --enable-source-maps app.js &
+    echo $! > /var/run/mcs_daemon.pid
+    eend $?
+}
+
+stop() {
+    if [ -f /var/run/mcs_daemon.pid ]; then
+        kill -TERM $(cat /var/run/mcs_daemon.pid)
+        rm /var/run/mcs_daemon.pid
+    fi
+    eend $?
+}

@@ -1,5 +1,7 @@
 FROM node:lts-alpine AS builder
+
 ARG LATEST_TAG
+
 RUN apk update && \
     apk add --no-cache --virtual .build-deps curl && \
     cd /opt && \
@@ -9,11 +11,13 @@ RUN apk update && \
     apk del .build-deps && \
     rm -rf /var/cache/apk/*
 
+
 FROM node:lts-alpine
+
 WORKDIR /opt/mcsmanager/web
+
 COPY --from=builder /opt/mcsmanager/web ./
+
 RUN npm install --omit=dev
-# ENV LC_ALL=en_US.UTF-8
-# ENV LANG=en_US.UTF-8
-# ENV LANGUAGE=en_US.UTF-8
+
 ENTRYPOINT ["node", "--max-old-space-size=8192", "--enable-source-maps", "app.js"]

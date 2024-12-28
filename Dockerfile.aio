@@ -1,0 +1,32 @@
+FROM node:lts-alpine AS builder
+
+ARG LATEST_TAG
+
+RUN apk update && \
+    apk add --no-cache --virtual .build-deps curl && \
+    cd /opt && \
+    curl -L -o mcsmanager_linux_release.tar.gz https://github.com/MCSManager/MCSManager/releases/download/$LATEST_TAG/mcsmanager_linux_release.tar.gz && \
+    tar -zxf mcsmanager_linux_release.tar.gz && \
+    rm -rf mcsmanager_linux_release.tar.gz && \
+    apk del .build-deps && \
+    rm -rf /var/cache/apk/*
+
+
+FROM node:lts-alpine
+
+COPY --from=builder /opt/mcsmanager /opt/mcsmanager
+COPY root/ /
+
+RUN apk update && \
+    apk add --no-cache openrc && \
+    cd /opt/mcsmanager/daemon && \
+    npm install --omit=dev && \
+    cd /opt/mcsmanager/web && \
+    npm install --omit=dev && \
+    chmod +x /etc/init.d/mcs* && \
+    rc-update add mcs_web default && \
+    rc-update add mcs_daemon default && \
+    rm -rf /var/cache/apk/*
+    
+# ENTRYPOINT ["node", "--max-old-space-size=8192", "--enable-source-maps", "app.js"]
+CMD [ "/sbin/init" ]

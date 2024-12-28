@@ -85,6 +85,20 @@ jobs:
             LATEST_TAG=${{ env.latest_version }}
           platforms: linux/amd64,linux/arm64
 
+      - name: Docker build-push aio
+        if: env.local_version != env.latest_version
+        uses: docker/build-push-action@v6.9.0
+        with:
+          context: .
+          file: Dockerfile.aio
+          push: true # push to docker hub
+          tags: |
+              1lkei/mcsmanager:latest
+              1lkei/mcsmanager:${{ env.latest_version }}
+          build-args: |
+            LATEST_TAG=${{ env.latest_version }}
+          platforms: linux/amd64,linux/arm64
+
       - name: Commit updated version
         if: env.local_version != env.latest_version
         run: |
