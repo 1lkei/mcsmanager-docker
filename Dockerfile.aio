@@ -15,7 +15,7 @@ RUN apk update && \
 FROM node:lts-alpine
 
 COPY --from=builder /opt/mcsmanager /opt/mcsmanager
-COPY root/ /
+COPY root /
 
 RUN apk update && \
     apk add --no-cache openrc && \
@@ -23,7 +23,10 @@ RUN apk update && \
     npm install --omit=dev && \
     cd /opt/mcsmanager/web && \
     npm install --omit=dev && \
-    chmod +x /etc/init.d/mcs* && \
+    ls -al / && \
+    ls -al /etc/init.d && \
+    chmod +x /etc/init.d/mcs_web && \
+    chmod +x /etc/init.d/mcs_daemon && \
     rc-update add mcs_web default && \
     rc-update add mcs_daemon default && \
     rm -rf /var/cache/apk/*
