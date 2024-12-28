@@ -29,5 +29,4 @@ RUN apk update && \
     for tty in $(ls /etc/init.d/ | grep agetty); do rc-update del $tty default; done && \
     rm -rf /var/cache/apk/*
 
-ENTRYPOINT ["/sbin/openrc"]
-CMD ["sysinit"]
+CMD [ "/sbin/init" ]
