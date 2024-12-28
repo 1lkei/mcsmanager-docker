@@ -15,18 +15,12 @@ RUN apk update && \
 FROM node:lts-alpine
 
 COPY --from=builder /opt/mcsmanager /opt/mcsmanager
-COPY root /
+COPY entrypoint.sh /entrypoint.sh
 
-RUN apk update && \
-    apk add --no-cache openrc && \
-    cd /opt/mcsmanager/daemon && \
+RUN cd /opt/mcsmanager/daemon && \
     npm install --omit=dev && \
     cd /opt/mcsmanager/web && \
     npm install --omit=dev && \
-    chmod +x /etc/init.d/mcs_* && \
-    rc-update add mcs_web default && \
-    rc-update add mcs_daemon default && \
-    for tty in $(ls /etc/init.d/ | grep agetty); do rc-update del $tty default; done && \
-    rm -rf /var/cache/apk/*
+    chmod +x /entrypoint.sh
 
-CMD [ "/sbin/init" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
