@@ -15,7 +15,7 @@ RUN apk update && \
 FROM node:lts-alpine
 
 COPY --from=builder /opt/mcsmanager /opt/mcsmanager
-COPY /root /
+COPY root /
 
 RUN apk update && \
     apk add --no-cache openrc && \
