@@ -17,7 +17,8 @@ FROM node:lts-alpine
 COPY --from=builder /opt/mcsmanager /opt/mcsmanager
 COPY entrypoint.sh /entrypoint.sh
 
-RUN cd /opt/mcsmanager/daemon && \
+RUN rm -rf /opt/mcsmanager/*.sh && \
+    cd /opt/mcsmanager/daemon && \
     npm install --omit=dev && \
     cd /opt/mcsmanager/web && \
     npm install --omit=dev && \
