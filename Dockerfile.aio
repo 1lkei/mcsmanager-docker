@@ -26,4 +26,8 @@ RUN apk update && \
     chmod +x /etc/init.d/mcs_* && \
     rc-update add mcs_web default && \
     rc-update add mcs_daemon default && \
+    for tty in $(ls /etc/init.d/ | grep agetty); do rc-update del $tty default; done && \
     rm -rf /var/cache/apk/*
+
+ENTRYPOINT ["/sbin/openrc"]
+CMD ["sysinit"]
