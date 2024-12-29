@@ -1,27 +1,18 @@
-FROM node:lts-alpine AS builder
-
-ARG LATEST_TAG
-
-RUN apk update && \
-    apk add --no-cache --virtual .build-deps curl && \
-    cd /opt && \
-    curl -L -o mcsmanager_linux_release.tar.gz https://github.com/MCSManager/MCSManager/releases/download/$LATEST_TAG/mcsmanager_linux_release.tar.gz && \
-    tar -zxf mcsmanager_linux_release.tar.gz && \
-    rm -rf mcsmanager_linux_release.tar.gz && \
-    apk del .build-deps && \
-    rm -rf /var/cache/apk/*
-
-
 FROM node:lts-alpine
 
-COPY --from=builder /opt/mcsmanager /opt/mcsmanager
+ARG LATEST_TAG
 COPY entrypoint.sh /entrypoint.sh
 
-RUN rm -rf /opt/mcsmanager/*.sh && \
+RUN cd /tmp && \
+    wget -O /tmp/mcsmanager.tar.gz https://github.com/MCSManager/MCSManager/releases/download/$LATEST_TAG/mcsmanager_linux_release.tar.gz && \
+    tar -xf mcsmanager.tar.gz && \
+    rm -rf /tmp/mcsmanager/*.sh && \
+    mv /tmp/mcsmanager /opt && \
     cd /opt/mcsmanager/daemon && \
     npm install --omit=dev && \
     cd /opt/mcsmanager/web && \
     npm install --omit=dev && \
-    chmod +x /entrypoint.sh
+    chmod +x /entrypoint.sh && \
+    rm -rf /tmp/*
 
 ENTRYPOINT [ "/entrypoint.sh" ]
