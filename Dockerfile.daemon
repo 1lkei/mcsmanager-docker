@@ -6,7 +6,7 @@ WORKDIR /opt/mcsmanager/daemon
 RUN cd /tmp && \
     wget -O /tmp/mcsmanager.tar.gz https://github.com/MCSManager/MCSManager/releases/download/$LATEST_TAG/mcsmanager_linux_release.tar.gz && \
     tar -xf mcsmanager.tar.gz && \
-    mv /tmp/mcsmanager/daemon /opt/mcsmanager/daemon && \
+    mv /tmp/mcsmanager/daemon/* /opt/mcsmanager/daemon && \
     cd /opt/mcsmanager/daemon && \
     npm install --omit=dev && \
     rm -rf /tmp/*

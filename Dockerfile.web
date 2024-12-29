@@ -6,7 +6,7 @@ WORKDIR /opt/mcsmanager/web
 RUN cd /tmp && \
     wget -O /tmp/mcsmanager.tar.gz https://github.com/MCSManager/MCSManager/releases/download/$LATEST_TAG/mcsmanager_linux_release.tar.gz && \
     tar -xf mcsmanager.tar.gz && \
-    mv /tmp/mcsmanager/web /opt/mcsmanager/web && \
+    mv /tmp/mcsmanager/web/* /opt/mcsmanager/web && \
     cd /opt/mcsmanager/web && \
     npm install --omit=dev && \
     rm -rf /tmp/*
