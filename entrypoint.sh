@@ -9,10 +9,10 @@ stop_services() {
 
 trap stop_services SIGTERM SIGINT
 
-cd /opt/mcsmanager/daemon/ && node --max-old-space-size=8192 --enable-source-maps app.js &
+cd /opt/mcsmanager/daemon/ && node app.js --max-old-space-size=8192 &
 pid1=$!
 
-cd /opt/mcsmanager/web/ && node --max-old-space-size=8192 --enable-source-maps app.js &
+cd /opt/mcsmanager/web/ && node app.js --max-old-space-size=8192 &
 pid2=$!
 
 wait $pid1 $pid2

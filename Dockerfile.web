@@ -8,7 +8,7 @@ RUN cd /tmp && \
     tar -xf mcsmanager.tar.gz && \
     mv /tmp/mcsmanager/web/* /opt/mcsmanager/web && \
     cd /opt/mcsmanager/web && \
-    npm install --omit=dev && \
+    npm install --production && \
     rm -rf /tmp/*
 
-ENTRYPOINT ["node", "--max-old-space-size=8192", "--enable-source-maps", "app.js"]
+ENTRYPOINT ["node", "app.js", "--max-old-space-size=8192"]
