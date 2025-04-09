@@ -9,9 +9,9 @@ RUN cd /tmp && \
     rm -rf /tmp/mcsmanager/*.sh && \
     mv /tmp/mcsmanager /opt && \
     cd /opt/mcsmanager/daemon && \
-    npm install --production && \
+    npm install --production --no-fund --no-audit && \
     cd /opt/mcsmanager/web && \
-    npm install --production && \
+    npm install --production --no-fund --no-audit && \
     chmod +x /entrypoint.sh && \
     rm -rf /tmp/*
 

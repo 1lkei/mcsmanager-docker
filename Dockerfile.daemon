@@ -8,7 +8,7 @@ RUN cd /tmp && \
     tar -xf mcsmanager.tar.gz && \
     mv /tmp/mcsmanager/daemon/* /opt/mcsmanager/daemon && \
     cd /opt/mcsmanager/daemon && \
-    npm install --production && \
+    npm install --production --no-fund --no-audit && \
     rm -rf /tmp/*
 
 ENTRYPOINT ["node", "app.js", "--max-old-space-size=8192"]
